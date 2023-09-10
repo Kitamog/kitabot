@@ -28,15 +28,19 @@ active_channels = []  # ONにしたチャンネルのリスト
 async def send_map_every_30_seconds():
 	await client.wait_until_ready()
 	while True:
-		# マップローテーションの取得
-		url_map = "https://api.mozambiquehe.re/maprotation?version=2&auth="
-		als_api_key = settings.ALS_API_KEY
-		res_map = requests.get(url_map + als_api_key)
-		json_map = json.loads(res_map.text)
-		if res_map.status_code == 200:
-			print("(ALS)Request succeeded")
-		else:
-			print("(ALS)Request failed with " + str(res_map.status_code))
+		try:
+			# マップローテーションの取得
+			url_map = "https://api.mozambiquehe.re/maprotation?version=2&auth="
+			als_api_key = settings.ALS_API_KEY
+			res_map = requests.get(url_map + als_api_key)
+			json_map = json.loads(res_map.text)
+			if res_map.status_code == 200:
+				print("(ALS)Request succeeded")
+			else:
+				print("(ALS)Request failed with " + str(res_map.status_code))
+		except Exception as e:
+			print(f"エラーが発生しました: {e}")
+			continue  # 最初からやり直す
 
 		# カジュアルのマップローテーションを取得
 		battle_royale_current_map = json_map['battle_royale']['current']['map']
