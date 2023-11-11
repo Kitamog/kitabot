@@ -113,7 +113,7 @@ async def send_map_every_30_seconds():
 			global msged_content
 	
 			if msged_content == msg_content:
-				print('既にメッセージを送信済みです')
+				print('既にメッセージを送信済みです。')
 			else:
 				# メッセージを送信(まだmsg_contentを送っていないとき)
 				for channel in active_channels:
